@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Te Amo ❤️</title>
+    <title>Você me ama? ❤️</title>
     <style>
         body {
             display: flex;
@@ -11,16 +11,36 @@
             align-items: center;
             height: 100vh;
             background-color: #ffe6e6;
-            overflow: hidden;
             flex-direction: column;
             font-family: Arial, sans-serif;
+            text-align: center;
             touch-action: manipulation;
         }
-        #heart {
-            font-size: 50px;
-            position: absolute;
+        h1 {
+            font-size: 24px;
+            color: #ff4d4d;
+        }
+        .buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            position: relative;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
             cursor: pointer;
-            transition: top 0.3s, left 0.3s;
+            border-radius: 10px;
+        }
+        #yes {
+            background-color: #ff4d4d;
+            color: white;
+        }
+        #no {
+            background-color: #ccc;
+            position: relative;
+            transition: transform 0.3s ease;
         }
         #message {
             display: none;
@@ -31,38 +51,44 @@
             text-align: center;
         }
         @media (max-width: 600px) {
-            #heart {
-                font-size: 40px;
-            }
-            #message {
+            h1 {
                 font-size: 20px;
+            }
+            button {
+                font-size: 16px;
+                padding: 8px 16px;
             }
         }
     </style>
 </head>
 <body>
-    <div id="heart">❤️</div>
-    <div id="message">Te Amo! 💖</div>
+    <h1>Você me ama? ❤️</h1>
+    <div class="buttons">
+        <button id="yes">Sim</button>
+        <button id="no">Não</button>
+    </div>
+    <div id="message">Eu sabia! Te amo! 💖</div>
     
     <script>
-        const heart = document.getElementById("heart");
+        const noButton = document.getElementById("no");
+        const yesButton = document.getElementById("yes");
         const message = document.getElementById("message");
+        let moved = false;
 
-        function moveHeart() {
-            const x = Math.random() * (window.innerWidth - 50);
-            const y = Math.random() * (window.innerHeight - 50);
-            heart.style.left = `${x}px`;
-            heart.style.top = `${y}px`;
-        }
-
-        heart.addEventListener("touchstart", moveHeart);
-        heart.addEventListener("mouseover", moveHeart);
-        heart.addEventListener("click", function() {
-            heart.style.display = "none";
-            message.style.display = "block";
+        noButton.addEventListener("mouseover", function() {
+            if (!moved) {
+                moved = true;
+                return;
+            }
+            const x = Math.random() * (window.innerWidth * 0.6 - 50);
+            const y = Math.random() * (window.innerHeight * 0.6 - 50);
+            noButton.style.transform = `translate(${x}px, ${y}px)`;
         });
 
-        moveHeart(); // Inicializa em uma posição aleatória
+        yesButton.addEventListener("click", function() {
+            document.querySelector(".buttons").style.display = "none";
+            message.style.display = "block";
+        });
     </script>
 </body>
 </html>
